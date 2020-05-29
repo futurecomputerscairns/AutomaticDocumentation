@@ -1,10 +1,31 @@
+param([string]$APIKey = "",
+      [string]$ITGOrg = "")
+
+
+function AttemptMatch($attemptedorganisation) {
+    $attempted_match = Get-ITGlueOrganizations -filter_name $attemptedorganisation
+    if($attempted_match.data[0].attributes.name -eq $attemptedorganisation) {
+                    
+                $ITGlueOrganisation = $attempted_match.data.id
+    }
+                else {
+                Write-Output "No auto-match was found. Please pass the exact name in ITGlue to -organization <string>" 
+                Exit
+                }
+            return $ITGlueOrganisation
+    
+               
+          }
+
 #####################################################################
-$APIKEy = "ITGLUEAPIKEYHERE"
-$APIEndpoint = "https://api.eu.itglue.com"
-$orgID = "ORGIDHERE"
-$ChangeAdminUsername = $true
-$NewAdminUsername = "Tits"
+$APIKEy = $APIKey
+$APIEndpoint = "https://api.itglue.com"
+$orgID = AttemptMatch $ITGOrg 
+$ChangeAdminUsername = $false
+$NewAdminUsername = "Unlikelyusername"
 #####################################################################
+
+          
 #Grabbing ITGlue Module and installing.
 If(Get-Module -ListAvailable -Name "ITGlueAPI") {Import-module ITGlueAPI} Else { install-module ITGlueAPI -Force; import-module ITGlueAPI}
 #Settings IT-Glue logon information
