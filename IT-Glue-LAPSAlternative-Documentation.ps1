@@ -14,7 +14,7 @@ $NewAdminUsername = "Unlikelyusername"
 
 #Settings IT-Glue logon information
 Add-ITGlueBaseURI -base_uri $APIEndpoint
-Add-ITGlueAPIKey $APIKEy
+Add-ITGlueAPIKey $APIKey
 
 function AttemptMatch($attemptedorganisation) {
     $attempted_match = Get-ITGlueOrganizations -filter_name $attemptedorganisation
