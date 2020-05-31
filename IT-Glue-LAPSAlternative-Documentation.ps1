@@ -2,6 +2,9 @@ param([string]$APIKey = "",
       [string]$ITGOrg = "")
 
 
+#Grabbing ITGlue Module and installing.
+If(Get-Module -ListAvailable -Name "ITGlueAPI") {Import-module ITGlueAPI} Else { import-module "C:\temp\itglue\modules\itgluepowershell\ITGlueAPI.psm1"}      
+
 function AttemptMatch($attemptedorganisation) {
     $attempted_match = Get-ITGlueOrganizations -filter_name $attemptedorganisation
     if($attempted_match.data[0].attributes.name -eq $attemptedorganisation) {
@@ -26,8 +29,7 @@ $NewAdminUsername = "Unlikelyusername"
 #####################################################################
 
           
-#Grabbing ITGlue Module and installing.
-If(Get-Module -ListAvailable -Name "ITGlueAPI") {Import-module ITGlueAPI} Else { import-module "C:\temp\itglue\modules\itgluepowershell\ITGlueAPI.psm1"}
+
 #Settings IT-Glue logon information
 Add-ITGlueBaseURI -base_uri $APIEndpoint
 Add-ITGlueAPIKey $APIKEy
