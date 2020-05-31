@@ -3,7 +3,7 @@ param([string]$APIKey = "",
 
 
 #Importing ITGlue module
-import-module "C:\temp\itglue\modules\itgluepowershell\ITGlueAPI.psm1"
+If(Get-Module -ListAvailable -Name "ITGlueAPI") {Import-module ITGlueAPI} Else { install-module ITGlueAPI -Force; import-module ITGlueAPI}
 
 #####################################################################
 $APIKEy = $APIKey
