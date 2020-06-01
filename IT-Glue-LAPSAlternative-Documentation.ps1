@@ -1,6 +1,10 @@
 param([string]$APIKey = "",
       [string]$ITGOrg = "")
 
+#Check for Nuget Package Provider
+
+If(Get-PackageProvider -Name Nuget) {} else {Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force}
+
 
 #Importing ITGlue module
 If(Get-Module -ListAvailable -Name "ITGlueAPI") {Import-module ITGlueAPI} Else { install-module ITGlueAPI -Force; import-module ITGlueAPI}
